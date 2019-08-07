@@ -1,8 +1,8 @@
 version: '3'
 services:
   jenkins:
-    image: 'jenkinsci/blueocean'
-    container_name: jenkins
+    image: jenkinsci/blueocean:1.18.1
+    container_name: jenkins_blueocean
     restart: always
     ports:
       - '50000:50000'
