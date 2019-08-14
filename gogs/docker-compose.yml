@@ -11,6 +11,8 @@ services:
     volumes:
       - ./gogs:/data/gogs
     restart: always
+    depends_on: 
+      - mysql-gogs
 
   mysql-gogs:
     container_name: mysql_gogs
@@ -18,8 +20,7 @@ services:
     # ports:
       # - "3306:3306"
     volumes:
-      - ./db:/var/lib/mysql
-      - "./db-conf/my.cnf:/etc/my.cnf"
+      - ./mysql_db:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=gogs
       - MYSQL_USER=gogs
