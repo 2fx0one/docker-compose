@@ -6,8 +6,8 @@ services:
     links:
       - mysql-gogs:mysql
     ports:
-      - "10022:22"
-      - "10080:3000"
+      - "50002:22"
+      - "50003:3000"
     volumes:
       - ./gogs:/data/gogs
     restart: always
