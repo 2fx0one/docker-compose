@@ -1,0 +1,30 @@
+version: '3'
+services:
+  gogs:
+    container_name: gogs
+    image: gogs/gogs:0.11.91
+    links:
+      - mysql-gogs:mysql
+    ports:
+      - "50002:22"
+      - "50003:3000"
+    volumes:
+      - ./gogs:/data/gogs
+    restart: always
+    depends_on:
+      - mysql-gogs
+
+  mysql-gogs:
+    container_name: mysql_gogs
+    image: mysql:5.7.27
+    # ports:
+      # - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=gogs
+      - MYSQL_USER=gogs
+      - MYSQL_PASSWORD=gogs
+      - MYSQL_ROOT_PASSWORD=123456
+    command: mysqld --lower_case_table_names=1 --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    restart: always
