@@ -6,8 +6,8 @@ services:
     links:
       - postgres-gogs:postgres
     ports:
-      - "10022:22"
-      - "10080:3000"
+      - "50002:22"
+      - "50003:3000"
     volumes:
       - ./gogs:/data/gogs
     restart: always
@@ -15,7 +15,7 @@ services:
       - postgres-gogs
 
   postgres-gogs:
-    container_name: postgres_gogs
+    container_name: gogs_postgres
     image: postgres:9.6.15-alpine
     # ports:
       # - "3306:3306"

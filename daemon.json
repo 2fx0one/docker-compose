@@ -1,0 +1,6 @@
+{
+  "registry-mirrors" : [
+    "https://reg-mirror.qiniu.com",
+    "http://f1361db2.m.daocloud.io"
+  ]
+}
