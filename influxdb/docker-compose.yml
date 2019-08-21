@@ -1,0 +1,12 @@
+version: '3'
+services:
+  influxdb:
+    image: 'influxdb:1.7.7'
+    container_name: influxdb_1.7.7
+    restart: always
+    ports:
+      - '0.0.0.0:8086:8086'
+    volumes:
+      - "./db:/var/lib/influxdb"
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
