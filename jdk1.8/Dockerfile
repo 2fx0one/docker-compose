@@ -1,6 +1,8 @@
 FROM centos:7
 
-MAINTAINER 2fxone 
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
+
+LABEL author 2fxone 
 
 WORKDIR /app
 
