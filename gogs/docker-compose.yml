@@ -22,7 +22,7 @@ services:
     volumes:
       - ./db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=gogs
+      - POSTGRES_USER=root
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=gogs
     restart: always

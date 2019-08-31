@@ -11,4 +11,4 @@ services:
       - "./conf/my.cnf:/etc/my.cnf"
       - "./init:/docker-entrypoint-initdb.d/"
     environment:
-      MYSQL_ROOT_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: 'root'

@@ -1,18 +1,12 @@
-FROM centos:7
+FROM openjdk:8-jdk-slim
 
-MAINTAINER 2fxone 
-RUN mkdir /usr/local/java
-#ADD 是相对路径jar,把java添加到容器中
-ADD jdk-8u191-linux-x64.tar.gz /usr/local/java/
+ENV TZ=Asia/Shanghai
+RUN set -eux; \
+    ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
+    echo $TZ > /etc/timezone
+#RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
 
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-#配置java环境变量
-ENV JAVA_HOME /usr/local/java/jdk1.8.0_191
+LABEL author 2fxone 
 
-ENV JRE_HOME $JAVA_HOME/jre
+WORKDIR /app
 
-ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH 
-
-ENV PATH $JAVA_HOME/bin:$PATH
