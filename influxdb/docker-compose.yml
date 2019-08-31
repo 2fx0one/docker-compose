@@ -8,5 +8,3 @@ services:
       - '0.0.0.0:8086:8086'
     volumes:
       - "./db:/var/lib/influxdb"
-    environment:
-      MYSQL_ROOT_PASSWORD: '123456'
