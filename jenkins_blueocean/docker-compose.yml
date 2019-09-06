@@ -9,3 +9,5 @@ services:
       - '50001:8080'
     volumes:
       - ./jenkins_home:/var/jenkins_home
+    environment:
+      JAVA_OPTS: "-Duser.timezone=Asia/Shanghai"
