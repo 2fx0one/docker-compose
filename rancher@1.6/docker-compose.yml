@@ -1,0 +1,10 @@
+version: '3'
+services:
+  rancher:
+    image: 'rancher/server:stable'
+    container_name: rancher_server
+    restart: unless-stopped
+    ports:
+      - '50010:8080'
+    volumes:
+      - './mysql_db:/var/lib/mysql'

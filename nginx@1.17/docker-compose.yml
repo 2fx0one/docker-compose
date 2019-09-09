@@ -1,0 +1,13 @@
+version: '3'
+services:
+  nginx:
+    image: 'nginx:1.17'
+    container_name: nginx_1.17
+    restart: always
+    ports:
+      - '8080:80'
+      - '8443:443'
+    volumes:
+      - ./log:/var/log/nginx
+      - ./www:/var/www
+      - ./conf.d:/etc/nginx/conf.d

@@ -1,0 +1,46 @@
+version: '3'
+services:
+  influxdb:
+    image: 'influxdb:1.7'
+    container_name: influxsrv
+    restart: always
+    ports:
+      - '50020:8086'
+    volumes:
+      - "./influxdb:/var/lib/influxdb"
+    environment:
+      INFLUXDB_ADMIN_USER: admin
+      INFLUXDB_ADMIN_PASSWORD: admin
+      INFLUXDB_DB: cadvisor
+      INFLUXDB_USER: cadvisor
+      INFLUXDB_USER_PASSWORD: cadvisor
+
+  cadvisor:
+    image: google/cadvisor
+    links:
+      - influxdb:influxsrv
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+    restart: always
+    ports:
+      - "50021:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  grafana:
+    image: grafana/grafana
+    restart: always
+    links:
+      - influxdb:influxsrv
+    ports:
+      - "50022:3000"
+    environment:
+      - HTTP_USER=admin
+      - HTTP_PASS=admin
+      - INFLUXDB_HOST=influxsrv
+      - INFLUXDB_PORT=50020
+      - INFLUXDB_NAME=cadvisor
+      - INFLUXDB_USER=cadvisor
+      - INFLUXDB_PASS=cadvisor
