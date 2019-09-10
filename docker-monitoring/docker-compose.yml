@@ -39,8 +39,8 @@ services:
     environment:
       - HTTP_USER=admin
       - HTTP_PASS=admin
-      - INFLUXDB_HOST=influxsrv
-      - INFLUXDB_PORT=50020
-      - INFLUXDB_NAME=cadvisor
-      - INFLUXDB_USER=cadvisor
-      - INFLUXDB_PASS=cadvisor
+      #- INFLUXDB_HOST=influxsrv
+      #- INFLUXDB_PORT=50020
+      #- INFLUXDB_NAME=cadvisor
+      #- INFLUXDB_USER=cadvisor
+      #- INFLUXDB_PASS=cadvisor
