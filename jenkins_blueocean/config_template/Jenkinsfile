@@ -1,0 +1,49 @@
+
+node {
+
+    def projectName = 'pig-upms/pig-upms-biz'
+    def dockerRegistry = 'http://192.168.199.12:50000'
+
+    //定义mvn环境
+    def mvnHome = tool 'maven 3.6.2'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
+
+    stage('git clone'){
+        echo '1. ===== git clone ===== 代码更新！！！'
+        git([url: "http://192.168.199.12:50003/JunFeng/pig.git", credentialsId: "3306ad74-d4fa-4802-90c5-a3a27972d4b6", branch: "dev"])
+    }
+
+    stage("version check!") {
+        echo '2. ===== version check ===== docker Registry 版本检查！！！'
+        dir("${projectName}") {
+            //获取 pom 中版本号
+            def version = sh(script: "grep -A1 '<packaging>jar</packaging>' pom.xml | grep version | cut -d '<' -f 2 | cut -d '>' -f2", returnStdout: true).trim()
+            echo version
+
+
+            def shellStatus = sh(script: "curl ${dockerRegistry}/v2/${projectName}/tags/list | grep '${version}'", returnStatus: true)
+            if (shellStatus == 0) { //找到了版本 退出
+                echo "!!!!!版本在docker-registry中已经存在 无法完成打包任务!!!!!!!"
+                sh 'exit 1'
+            }
+        }
+
+    }
+
+    stage('Build') {
+        echo '3. ===== Building... ===== 构建模块及其依赖模块！！！'
+        sh 'pwd '
+        sh 'which mvn && echo $HOME '
+        //单独构建模块，同时会构建该模块依赖的其他模块 If project list is specified, also build projects required by the list
+        sh "mvn clean package -pl ${projectName} -am"
+    }
+
+    stage('Test') {
+        echo 'Testing..'
+    }
+
+    stage('Deploy') {
+        echo '4. ===== Deploying.... ===== 部署到Docker Registry！！！'
+        sh "mvn docker:build -DpushImage -pl ${projectName}"
+    }
+}
