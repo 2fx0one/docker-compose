@@ -1,3 +1,0 @@
-172.22.0.1 - - [05/Sep/2019:07:11:25 +0000] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36" "-"
-172.22.0.1 - - [05/Sep/2019:07:11:25 +0000] "GET /favicon.ico HTTP/1.1" 404 555 "http://192.168.199.199:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36" "-"
-172.22.0.1 - - [05/Sep/2019:07:11:26 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36" "-"
