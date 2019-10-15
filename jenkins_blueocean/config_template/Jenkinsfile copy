@@ -1,0 +1,119 @@
+
+import groovy.xml.StreamingMarkupBuilder
+import groovy.xml.XmlUtil
+import org.json.JSONObject
+import groovy.xml.DOMBuilder
+import groovy.xml.dom.DOMCategory
+
+
+@NonCPS
+def xmlTransform(txt) {
+
+    def xmlRoot = new XmlSlurper(false, false).parseText(txt)
+    echo 'Start tranforming XML'
+//     xmlRoot.servers.server.each { node ->
+//        node.username = username
+//        node.password = password
+//     }
+
+    // TRICKY: FileWriter does NOT work
+    def outWriter = new StringWriter()
+    XmlUtil.serialize( xmlRoot, outWriter )
+    return outWriter.toString()
+}
+
+
+
+// Caused: java.io.NotSerializableException: groovy.util.XmlSlurper
+@NonCPS
+def getXml(path) {
+    // 报错 Scripts not permitted to use new groovy.util.XmlSlurper. Administrators can decide whether to approve or reject this signature.
+    // https://stackoverflow.com/questions/38276341/jenkins-ci-pipeline-scripts-not-permitted-to-use-method-groovy-lang-groovyobject
+//     def r = new XmlParser().parseText(readFile(path))
+//
+//     r.each {
+//         print "$project.artifactId"
+//     }
+
+        def project = DOMBuilder.parse(new StringReader(readFile(path)))
+//          def project = new XmlSlurper().parseText(readFile("${projectDir}/pom.xml"r))
+
+        print project.getClass()
+        use(DOMCategory) {
+            print project.artifactId
+        }
+}
+
+node {
+
+    def gitUrl = "http://192.168.199.12:50003/JunFeng/pig.git"
+    def projectDir = 'pig-manager'
+    def projectName = 'pig-manager'
+    def dockerRegistry = 'http://192.168.199.12:50000'
+
+    //定义mvn环境
+    def mvnHome = tool 'maven 3.6.2'
+    env.PATH = "${mvnHome}/bin:${env.PATH}"
+
+    stage('git clone'){
+        echo '1. ===== git clone ===== 代码更新！！！'
+        git([url: gitUrl, credentialsId: "3306ad74-d4fa-4802-90c5-a3a27972d4b6", branch: "dev"])
+    }
+
+    stage("version check!") {
+        echo '2. ===== version check ===== docker Registry 版本检查！！！'
+        def xml = "${projectDir}/pom.xml"
+//         def project = getXml("${projectDir}/pom.xml")
+//         assert project instanceof groovy.util.Node
+//         def project = new XmlParser().parseText(readFile(xml))
+//         def project = DOMBuilder.parse(new StringReader(readFile(xml)))
+//          def project = new XmlSlurper().parseText(readFile(xml))
+//         print project.getClass()
+//         print project
+//         print project.documentElement
+
+
+//         print project.documentElement.artifactId
+
+//         use(DOMCategory) {
+//             print project.documentElement.artifactId
+//         }
+//         def xmlJSONObj = XML.toJSONObject(project)
+//         print xmlJSONObj.getClass()
+//         print xmlJSONObj
+
+//         echo project
+//         echo project.artifactId
+
+        dir("${projectDir}") {
+
+            //获取 pom 中版本号
+//             def version = sh(script: "grep -A1 '<packaging>jar</packaging>' pom.xml | grep version | cut -d '<' -f 2 | cut -d '>' -f2", returnStdout: true).trim()
+            def version = sh(script: "grep -A1 'JF_DOCKER_VERSION' pom.xml | grep version | cut -d '<' -f 2 | cut -d '>' -f2", returnStdout: true).trim()
+            echo "version = $version"
+
+            def shellStatus = sh(script: "curl ${dockerRegistry}/v2/${projectDir}/tags/list | grep '${version}'", returnStatus: true)
+            if (shellStatus == 0) { //找到了版本 退出
+                echo "!!!!!版本在docker-registry中已经存在 无法完成打包任务!!!!!!!"
+                sh 'exit 1'
+            }
+        }
+    }
+
+    stage('Build') {
+        echo '3. ===== Building... ===== 构建模块及其依赖模块！！！'
+        sh 'pwd '
+        sh 'which mvn && echo $HOME '
+        //单独构建模块，同时会构建该模块依赖的其他模块 If project list is specified, also build projects required by the list
+        sh "mvn clean package -pl ${projectDir} -am"
+    }
+
+    stage('Test') {
+        echo 'Testing..'
+    }
+
+    stage('Deploy') {
+        echo '4. ===== Deploying.... ===== 部署到Docker Registry！！！'
+        sh "mvn docker:build -DpushImage -pl ${projectDir}"
+    }
+}
