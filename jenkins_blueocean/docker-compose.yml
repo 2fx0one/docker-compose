@@ -1,12 +1,12 @@
 version: '3'
 services:
   jenkins:
-    image: jenkinsci/blueocean:1.18.1
+    image: jenkinsci/blueocean
     container_name: jenkins_blueocean
     restart: always
     ports:
-      - '50000:50000'
-      - '50001:8080'
+      - '50005:50000'
+      - '50006:8080'
     volumes:
       - ./jenkins_home:/var/jenkins_home
     environment:

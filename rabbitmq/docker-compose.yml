@@ -3,6 +3,7 @@ services:
   rabbitmq:
     image: rabbitmq:management
     container_name: rabbitmq
+    restart: always
     ports:
       - "5671:5671"
       - "5672:5672"
@@ -14,6 +15,3 @@ services:
       RABBITMQ_DEFAULT_USER: "rabbitmq"
       RABBITMQ_DEFAULT_PASS: "rabbitmq"
       RABBITMQ_DEFAULT_VHOST: "/"
-    #ports:
-    #  - "15672:15672"
-    #  - "5672:5672"
