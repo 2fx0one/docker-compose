@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysql:
+  redis5.0:
     image: 'redis:5.0.5'
     container_name: redis_5.0.5
     command: redis-server --requirepass 123456
