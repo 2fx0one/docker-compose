@@ -1,0 +1,10 @@
+version: '3'
+services:
+  chatbot:
+    image: 'registry.cn-shanghai.aliyuncs.com/junfeng/chatbot:0.0.1'
+    container_name: chatbot
+    restart: always
+    ports:
+      - '8083:8083'
+    volumes:
+      - ./ai_data:/ai_data
