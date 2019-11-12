@@ -11,3 +11,4 @@ services:
       - ./jenkins_home:/var/jenkins_home
     environment:
       JAVA_OPTS: "-Duser.timezone=Asia/Shanghai"
+# NEED THIS CMD: chown -R 1000:1000 ..
