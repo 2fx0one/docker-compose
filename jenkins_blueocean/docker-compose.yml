@@ -13,3 +13,8 @@ services:
       JAVA_OPTS: "-Duser.timezone=Asia/Shanghai"
 # tips NEED THIS CMD: chown -R 1000:1000 ..
 # tips apk add nodejs && apk add npm
+
+# cat ~/.npmrc 加快速度
+#home=https://npm.taobao.org
+#registry=https://registry.npm.taobao.org/
+#sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
