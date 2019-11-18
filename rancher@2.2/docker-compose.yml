@@ -9,7 +9,7 @@ services:
       - '50443:443'
     volumes:
         - '.:/var/lib/rancher/'
-        - 'log:/var/log/auditlog'
+        - './log:/var/log/auditlog'
     environment:
         AUDIT_LEVEL: 3
 
