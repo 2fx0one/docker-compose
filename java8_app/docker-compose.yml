@@ -1,11 +1,11 @@
 version: '3'
 services:
   java8:
-    image: 'java:8'
-    container_name: java8
+    image: 'ccr.ccs.tencentyun.com/wmd_repos/wmd-shop-java:0.0.7'
+    container_name: shop
     restart: always
     ports:
-      - '8080:9090'
+      - '8894:8894'
     volumes:
-      - .:/app
-    command: java -jar /app/springboot-shiro-jwt-1.0.0-SNAPSHOT.jar
+      - ./log:/app/log
+      - ./config:/app/config
