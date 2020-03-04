@@ -1,11 +1,59 @@
 version: '3'
 services:
-  java8:
-    image: 'ccr.ccs.tencentyun.com/wmd_repos/wmd-shop-java:0.0.7'
-    container_name: shop
+  java-app:
+    image: 'jdk1.8:0.0.1'
+    container_name: java-app
     restart: always
     ports:
       - '8894:8894'
     volumes:
-      - ./log:/app/log
-      - ./config:/app/config
+      - ./app:/app
+
+  nginx:
+    image: nginx
+    restart: always
+    container_name: nginx
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+      - ./nginx/www:/etc/nginx/html
+      # - /etc/letsencrypt:/etc/letsencrypt
+  jar_app:
+    build: ./jdk
+    image: 'jdk'
+    container_name: jar_app
+    restart: always
+    ports:
+      - '8894:8894'
+    volumes:
+      - ./jar_app:/app
+  mysql:
+    image: 'mysql:5.7'
+    container_name: mysql_5.7
+    restart: always
+    ports:
+      - '0.0.0.0:3306:3306'
+    volumes:
+      - "./mysql/db:/var/lib/mysql"
+      - "./mysql/conf/my.cnf:/etc/my.cnf"
+      - "./mysql/init:/docker-entrypoint-initdb.d/"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      TZ: Asia/Shanghai
+
+  redis5.0:
+    image: 'redis:5.0'
+    container_name: redis_5.0
+    environment:
+      - TZ=Asia/Shanghai
+    command: redis-server --requirepass 123456
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - ".redis//data:/data"
