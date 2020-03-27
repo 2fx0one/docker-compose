@@ -1,0 +1,17 @@
+version: "2"
+services:
+  bookmark-es:
+    image: elasticsearch:7.2.0
+    container_name: bookmark-es
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./timezone:/etc/timezone
+      - ./es/data:/usr/share/elasticsearch/data
+      - ./es/ik:/usr/share/elasticsearch/plugins/ik
+      - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx1500m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+# modify own chown -R 1000:1000 es
