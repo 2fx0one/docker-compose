@@ -14,8 +14,8 @@ services:
       --lower_case_table_names=1
       --default-time-zone=+8:00
     environment:
-      MYSQL_ROOT_PASSWORD: "password" 
+      - MYSQL_ROOT_PASSWORD=123456 
     volumes:
       - "./db:/var/lib/mysql"
       - "./conf/my.cnf:/etc/my.cnf"
-    configs:
+      - "./init:/docker-entrypoint-initdb.d/"
