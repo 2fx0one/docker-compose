@@ -9,10 +9,12 @@ services:
     command:
       --default-authentication-plugin=mysql_native_password
       --character-set-server=utf8mb4
-      --collation-server=utf8mb4_unicode_ci
+      --collation-server=utf8mb4_general_ci
       --explicit_defaults_for_timestamp=true
-      --lower_case_table_names=1
+      --lower_case_table_names=1 
       --default-time-zone=+8:00
+      --innodb_buffer_pool_size=128M
+      --max_allowed_packet=256M
     environment:
       - MYSQL_ROOT_PASSWORD=123456 
     volumes:
