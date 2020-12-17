@@ -2,14 +2,14 @@ version: '3'
 services:
   gogs:
     container_name: gogs
-    image: gogs/gogs:0.11.91
+    image: gogs/gogs:0.12.3
     links:
       - postgres-gogs:postgres
     ports:
       - "50002:22"
       - "50003:3000"
     volumes:
-      - ./gogs:/data/gogs
+      - ./gogs:/data
     restart: always
     depends_on: 
       - postgres-gogs
