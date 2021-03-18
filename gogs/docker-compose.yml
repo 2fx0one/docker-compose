@@ -9,12 +9,8 @@ services:
       - "50022:22"
       - "53000:3000"
     volumes:
-<<<<<<< HEAD
       - ./data-gogs-repositories:/data/git/gogs-repositories
       - ./data-gogs:/data/gogs
-=======
-      - ./data:/data
->>>>>>> eee149c4388f32a06d96bdc5211c84c211d55d45
     restart: always
     depends_on: 
       - postgres-gogs
