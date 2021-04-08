@@ -25,3 +25,5 @@ services:
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=gogs
     restart: always
+
+# head.tmpl 放在 data-gogs/templates/base
