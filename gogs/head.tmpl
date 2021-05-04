@@ -151,7 +151,7 @@
 													<div class="divider"></div>
 
 													<a class="{{if .PageIsAdmin}}active{{end}} item" href="{{AppSubURL}}/admin">
-													<i class="icon settings"></i> {{.i18n.Tr "admin_panel"}}
+														<i class="icon settings"></i> {{.i18n.Tr "admin_panel"}}
 													</a>
 												{{end}}
 
@@ -160,7 +160,7 @@
 												<form id="logout-form" class="item" action="{{AppSubURL}}/user/logout" method="POST">
 													{{.CSRFTokenHTML}}
 													<div class="submit-button" data-form="#logout-form">
-													<i class="octicon octicon-sign-out"></i> {{.i18n.Tr "sign_out"}}
+														<i class="octicon octicon-sign-out"></i> {{.i18n.Tr "sign_out"}}
 													</div>
 												</form>
 											</div><!-- end content avatar menu -->

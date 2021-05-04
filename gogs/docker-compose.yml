@@ -6,10 +6,11 @@ services:
     links:
       - postgres-gogs:postgres
     ports:
-      - "50002:22"
-      - "50003:3000"
+      - "50022:22"
+      - "53000:3000"
     volumes:
-      - ./data:/data
+      - ./data-gogs-repositories:/data/git/gogs-repositories
+      - ./data-gogs:/data/gogs
     restart: always
     depends_on: 
       - postgres-gogs
@@ -17,12 +18,12 @@ services:
   postgres-gogs:
     container_name: gogs_postgres
     image: postgres:9.6.15-alpine
-    # ports:
-      # - "3306:3306"
     volumes:
       - ./db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=root
+      - POSTGRES_USER=gogs
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=gogs
     restart: always
+
+# head.tmpl 放在 data-gogs/templates/base

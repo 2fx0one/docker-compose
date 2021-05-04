@@ -1,0 +1,22 @@
+version: '3'
+services:
+  jenkins:
+    image: 2fx0one/jenkins:latest
+    container_name: jenkins
+    restart: always
+    ports:
+      - '50005:50000'
+      - '50006:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker 
+      - ./jenkins_home:/var/jenkins_home
+    environment:
+      JAVA_OPTS: "-Duser.timezone=Asia/Shanghai"
+# tips NEED THIS CMD: chown -R 1000:1000 .
+# tips apk add nodejs && apk add npm
+
+# cat ~/.npmrc 加快速度
+#home=https://npm.taobao.org
+#registry=https://registry.npm.taobao.org/
+#sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
