@@ -9,7 +9,8 @@ services:
       - "50022:22"
       - "53000:3000"
     volumes:
-      - ./data:/data
+      - ./data-gogs-repositories:/data/git/gogs-repositories
+      - ./data-gogs:/data/gogs
     restart: always
     depends_on: 
       - postgres-gogs
