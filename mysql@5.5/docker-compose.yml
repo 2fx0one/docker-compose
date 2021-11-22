@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mysql:
+    image: 'mysql:5.5.53'
+    container_name: mysql5
+    restart: always
+    ports:
+      - '0.0.0.0:33050:3306'
+    volumes:
+      - "./conf.d:/etc/mysql/conf.d"
+      - "./db:/var/lib/mysql"
+      - "./mysql/logs:/var/log/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'LNXK#G8U=5xVT6*#@'
+      MYSQL_ROOT_HOST: '%'
+      TZ: Asia/Shanghai
