@@ -11,6 +11,6 @@ services:
       - "./db:/var/lib/mysql"
       - "./mysql/logs:/var/log/mysql"
     environment:
-      MYSQL_ROOT_PASSWORD: 'LNXK#G8U=5xVT6*#@'
+      MYSQL_ROOT_PASSWORD: '123456'
       MYSQL_ROOT_HOST: '%'
       TZ: Asia/Shanghai
