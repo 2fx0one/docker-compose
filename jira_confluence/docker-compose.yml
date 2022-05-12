@@ -9,6 +9,13 @@ services:
     volumes:
       - ./data/jira/var/:/var/atlassian/jira/
       - ./data/jira/logs/:/opt/atlassian/jira/logs/
+    logging:
+      # limit logs retained on host to 25MB
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "50"
+  
   confluence:
     build: ./confluence
     container_name: confluence
@@ -18,15 +25,28 @@ services:
     volumes:
       - ./data/confluence/var/:/var/atlassian/confluence/
       - ./data/confluence/logs/:/opt/atlassian/confluence/logs/
-  mysql:
-    image: mysql:5.7
-    container_name: mysql
-    restart: always
-    ports:
-        - '3306:3306'
-    environment:
-      MYSQL_ROOT_PASSWORD: 123456 # mysql初始密码
+    logging:
+      # limit logs retained on host to 25MB
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "50"
+  
+  postgresql:
+    image: postgres:9.5-alpine
     volumes:
-      - ./data/mysql/data:/var/lib/mysql/
-      - ./data/mysql/conf.d/:/etc/mysql/conf.d/
-      - ./data/mysql/backup/:/backup/
+      - ./data/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - 'POSTGRES_USER=jira'
+      # CHANGE THE PASSWORD!
+      - 'POSTGRES_PASSWORD=jellyfish'
+      - 'POSTGRES_DB=jiradb'
+      - 'POSTGRES_ENCODING=UNICODE'
+      - 'POSTGRES_COLLATE=C'
+      - 'POSTGRES_COLLATE_TYPE=C'
+    logging:
+      # limit logs retained on host to 25MB
+      driver: "json-file"
+      options:
+        max-size: "500k"
+        max-file: "50"

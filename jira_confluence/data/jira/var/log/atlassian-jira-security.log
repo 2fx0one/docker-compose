@@ -1,4 +1,0 @@
-2022-05-12 02:57:41,364 http-nio-8080-exec-2 anonymous 177x2x1 - 172.23.0.1 /secure/SetupMode!default.jspa HttpSession created [ev23u5]
-2022-05-12 02:58:16,453 http-nio-8080-exec-6 anonymous 178x27x1 - 172.23.0.1 /secure/SetupDatabase!connectionCheck.jspa HttpSession created [t9t5w1]
-2022-05-12 03:00:35,701 localhost-startStop-2      HttpSession [ev23u5] destroyed for 'anonymous'
-2022-05-12 03:00:35,718 localhost-startStop-2      HttpSession [t9t5w1] destroyed for 'anonymous'
