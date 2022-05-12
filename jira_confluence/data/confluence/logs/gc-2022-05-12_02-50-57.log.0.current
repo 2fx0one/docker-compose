@@ -1,0 +1,6 @@
+OpenJDK 64-Bit Server VM (25.212-b04) for linux-amd64 JRE (1.8.0_212-b04), built on May  4 2019 17:56:12 by "buildozer" with gcc 8.3.0
+Memory: 4k page, physical 2032964k(159320k free), swap 1048572k(61684k free)
+CommandLine flags: -XX:G1ReservePercent=20 -XX:GCLogFileSize=2097152 -XX:+IgnoreUnrecognizedVMOptions -XX:InitialHeapSize=1073741824 -XX:MaxHeapSize=1073741824 -XX:NumberOfGCLogFiles=5 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:-PrintGCDetails -XX:+PrintGCTimeStamps -XX:-PrintTenuringDistribution -XX:ReservedCodeCacheSize=268435456 -XX:+UseCodeCacheFlushing -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseG1GC -XX:+UseGCLogFileRotation 
+2022-05-12T02:51:04.897+0000: 7.689: [GC pause (G1 Evacuation Pause) (young) 51M->8720K(1024M), 0.0186600 secs]
+2022-05-12T02:51:06.009+0000: 8.792: [GC pause (G1 Evacuation Pause) (young) 52M->14M(1024M), 0.0084170 secs]
+2022-05-12T02:51:06.810+0000: 9.593: [GC pause (G1 Evacuation Pause) (young) 85M->20M(1024M), 0.0097408 secs]

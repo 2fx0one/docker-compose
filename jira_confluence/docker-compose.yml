@@ -11,7 +11,7 @@ services:
       - ./data/jira/logs/:/opt/atlassian/jira/logs/
   confluence:
     build: ./confluence
-    container_name: mbs_confluence
+    container_name: confluence
     restart: always
     ports:
         - '8090:8090'
@@ -19,8 +19,8 @@ services:
       - ./data/confluence/var/:/var/atlassian/confluence/
       - ./data/confluence/logs/:/opt/atlassian/confluence/logs/
   mysql:
-    image: mysql:5.6
-    container_name: mbs_mysql
+    image: mysql:5.7
+    container_name: mysql
     restart: always
     ports:
         - '3306:3306'
