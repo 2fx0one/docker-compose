@@ -1,0 +1,32 @@
+version: '3.6'
+services:
+  jira:
+    build: ./jira
+    container_name: jira
+    restart: always
+    ports:
+        - '8080:8080'
+    volumes:
+      - ./data/jira/var/:/var/atlassian/jira/
+      - ./data/jira/logs/:/opt/atlassian/jira/logs/
+  confluence:
+    build: ./confluence
+    container_name: mbs_confluence
+    restart: always
+    ports:
+        - '8090:8090'
+    volumes:
+      - ./data/confluence/var/:/var/atlassian/confluence/
+      - ./data/confluence/logs/:/opt/atlassian/confluence/logs/
+  mysql:
+    image: mysql:5.6
+    container_name: mbs_mysql
+    restart: always
+    ports:
+        - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456 # mysql初始密码
+    volumes:
+      - ./data/mysql/data:/var/lib/mysql/
+      - ./data/mysql/conf.d/:/etc/mysql/conf.d/
+      - ./data/mysql/backup/:/backup/
