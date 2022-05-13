@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   jira:
-    build: ./jira
+    build: .
     container_name: jira
     restart: always
     ports:
@@ -10,24 +10,13 @@ services:
       - ./data/jira/var/:/var/atlassian/jira/
       - ./data/jira/logs/:/opt/atlassian/jira/logs/
   
-  confluence:
-    build: ./confluence
-    container_name: confluence
-    restart: always
-    ports:
-        - '8090:8090'
-    volumes:
-      - ./data/confluence/var/:/var/atlassian/confluence/
-      - ./data/confluence/logs/:/opt/atlassian/confluence/logs/
-
   postgresql:
     image: postgres:9.5-alpine
     volumes:
       - ./data/postgresql/data:/var/lib/postgresql/data
     environment:
       - 'POSTGRES_USER=jira'
-      # CHANGE THE PASSWORD!
-      - 'POSTGRES_PASSWORD=jellyfish'
+      - 'POSTGRES_PASSWORD=jellyxxxxfish'
       - 'POSTGRES_DB=jiradb'
       - 'POSTGRES_ENCODING=UNICODE'
       - 'POSTGRES_COLLATE=C'
