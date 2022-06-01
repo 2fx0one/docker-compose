@@ -11,7 +11,7 @@ services:
       - ./data/jira/logs/:/opt/atlassian/jira/logs/
   
   postgresql:
-    image: postgres:9.5-alpine
+    image: postgres:10
     volumes:
       - ./data/postgresql/data:/var/lib/postgresql/data
     environment:
