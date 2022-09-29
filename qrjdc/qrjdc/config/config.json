@@ -1,0 +1,13 @@
+{
+  "Main": {
+    "Title": "JD找豆豆",
+    "Mode": "RES"
+  },
+  "QL": {
+    "Open": 1,
+    "Client_ID": "55_vk3hzFyzR",
+    "Client_Secret": "aAf9y7fu6rf2cqNNCV-r_XVx",
+    "URL": "http://121.40.194.235:8002"
+  },
+  "Notice": "公告"
+}

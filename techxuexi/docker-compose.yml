@@ -1,0 +1,30 @@
+version: "3.6"
+
+services:
+    techxuexi:
+        image: techxuexi/techxuexi-amd64
+        container_name: techxuexi-web
+        # 自动重启
+        restart: always
+        # 挂载目录
+        volumes:
+            - ./xuexi:/xuexi/user
+        # 打开的端口
+        ports:
+            # 打开9980端口，访问 http://ip:9980 进行控制
+            - 9980:80
+        # 设置共享内存2g（shared memory）,减少chrome崩溃
+        shm_size: 2gb
+        # 环境变量
+        environment:
+            # 将在每天0：25和18：25自动运行一次学习，防止忘记点UID开始学习
+            - CRONTIME=25 18,0 * * *
+            # 每6小时运行一次
+            # - CRONTIME=25 */6 * * *
+            # 打开专项答题
+            - ZhuanXiang=True
+            # 信息推送模式：网页模式
+            - Pushmode=6
+            # 以下爱参数网页模式不需要，其他模式请根据实际情况修改
+            # - "AccessToken={token}"
+            # - "Secret={密钥}"
